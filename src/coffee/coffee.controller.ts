@@ -9,6 +9,7 @@ import {
   // Res,
   Patch,
   Delete,
+  Query,
   // Query,
 } from '@nestjs/common';
 
@@ -42,15 +43,15 @@ export class CoffeeController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string) {
+  getById(@Param('id') id: string, @Query() query: Record<string, any>) {
+    console.log(query);
     return this.coffeeService.getById(id);
   }
 
   @Post()
   @HttpCode(HttpStatus.GONE)
   create(@Body() coffeeDto: CreateCoffeeDto) {
-    console.log(coffeeDto instanceof CreateCoffeeDto);
-
+    console.log(JSON.stringify(coffeeDto));
     return this.coffeeService.create(coffeeDto);
   }
 
