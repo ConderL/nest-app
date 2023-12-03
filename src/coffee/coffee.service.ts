@@ -5,6 +5,7 @@ import { UpdateCoffeeDto } from './dto/updateCoffeeDto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Flavor } from './entities/flavor.entity/flavor.entity';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 console.log(CreateCoffeeDto);
 
@@ -17,8 +18,13 @@ export class CoffeeService {
     private readonly flavorRepository: Repository<Flavor>,
   ) {}
 
-  find() {
-    return this.coffeeRepository.find({ relations: ['flavors'] });
+  find(paginationQuery: PaginationQueryDto) {
+    const { offset, limit } = paginationQuery;
+    return this.coffeeRepository.find({
+      relations: ['flavors'],
+      skip: offset,
+      take: limit,
+    });
   }
 
   async getById(id) {
