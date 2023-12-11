@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 控制反转 (Inversion of control) 把传统模式中需要自己通过 new 实例化构造函数，或者通过工厂模式实例化的任务交给容器。
+
+      class Engine {}
+      class tires {}
+
+      // 传统模式下
+      class Car {
+        constructor() {
+          this.engine = new Engine();
+          this.tires = Tires.getInstance();
+        }
+      }
+
+      // IoC下
+
+      class Container {
+        constructor() {
+          this.constructorPool = new Map();
+        }
+
+        register(name, definition, dependencies) {
+          this.constructorPool.set(name, {
+            definition: definition,
+            dependencies: dependencies,
+          });
+        }
+
+        get(name) {
+          const targetConstructor = this.constructorPool.get(name);
+          if (this._isClass(targetConstructor.definition)) {
+            return this._createInstance(targetConstructor);
+          } else {
+            return targetConstructor.definition;
+          }
+        }
+
+        // 递归拿到类的所有依赖集合
+        _getResolvedDependencies(target) {
+          let classDependencies = [];
+          if (target.dependencies) {
+            classDependencies = target.dependencies.map((dependency) => {
+              return this.get(dependency);
+            });
+          }
+          return classDependencies;
+        }
+
+        _createInstance(target) {
+          return new target.definition(
+            ...this._getResolvedDependencies(service),
+          );
+        }
+
+        // 判断是否为构造函数
+        _isClass(definition) {
+          return (
+            Object.prototype.toString.call(definition) === '[object Function]'
+          );
+        }
+      }
+
+      const container = new Container();
+      container.bind('engine', Engine);
+      container.bind('tires', Tires);
+
+      export class Engine {
+        constructor() {
+          this.health = true;
+        }
+        async check() {
+          const result1 = await http.get('demo'); //check 1
+          const result2 = await db.find({
+            //check 2
+            id: 'demoId',
+          });
+          const result3 = this.health; //check 3
+
+          return result1 && result2 && result3;
+        }
+      }
+
+      class Car {
+        constructor() {
+          this.engine = new Engine();
+          this.tires = Tires.getInstance();
+        }
+
+        async run() {
+          const engineStatus = await this.engine.check();
+          const tiresStatus = await this.tires.check();
+
+          if (engineStatus && tiresStatus) {
+            return console.log('car running.');
+          }
+          return console.log('car broken');
+        }
+      }
+    </script>
+  </body>
+</html>
