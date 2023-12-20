@@ -7,8 +7,6 @@ import { Repository } from 'typeorm';
 import { Flavor } from './entities/flavor.entity/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
-console.log(CreateCoffeeDto);
-
 @Injectable()
 export class CoffeeService {
   constructor(

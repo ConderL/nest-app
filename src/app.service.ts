@@ -7,8 +7,6 @@ export class AppService {
   private coffeeService: CoffeeService;
 
   getHello(): string {
-    console.log(this.coffeeService);
-
     return 'Hello Nest~';
   }
 }

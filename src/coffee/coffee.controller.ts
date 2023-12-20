@@ -46,7 +46,6 @@ export class CoffeeController {
   @Post()
   @HttpCode(HttpStatus.GONE)
   create(@Body() coffeeDto: CreateCoffeeDto) {
-    console.log(JSON.stringify(coffeeDto));
     return this.coffeeService.create(coffeeDto);
   }
 

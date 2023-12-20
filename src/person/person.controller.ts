@@ -27,8 +27,6 @@ export class PersonController {
     @Body() createPersonDto: CreatePersonDto,
     @UploadedFiles() files: Array<Express.Multer.File>,
   ) {
-    console.log(createPersonDto);
-
     console.log(files);
     return `received: ${JSON.stringify(createPersonDto)}`;
   }
