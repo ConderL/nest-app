@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoffeeModule } from './coffee/coffee.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PersonController } from './person/person.controller';
+import { PersonModule } from './person/person.module';
 
 @Module({
   imports: [
+    PersonModule,
     CoffeeModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -19,7 +20,7 @@ import { PersonController } from './person/person.controller';
       synchronize: true,
     }),
   ],
-  controllers: [AppController, PersonController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
