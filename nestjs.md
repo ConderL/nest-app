@@ -40,6 +40,28 @@
 
 `nest g module` 
 
+### middleware
+
+生成路由中间件
+
+`nest g middleware`
+
+生成路由守卫
+
+`nest g guard`
+
+生成拦截器
+
+`nest g interceptor`
+
+对参数进行校验
+
+`nest g pipe`
+
+创建一个filter
+
+`nest g filter`
+
 ### DTO
 
 **DTO** 数据传输对象，全称 "data transfer object"

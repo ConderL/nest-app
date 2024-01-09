@@ -18,8 +18,10 @@ import { CreatePersonDto } from './dto/create-person.dto';
 import { PersonService } from './person.service';
 import { CoffeeService } from 'src/coffee/coffee.service';
 import { log } from 'console';
+import { TimeInterceptor } from 'src/time.interceptor';
 
 @Controller('/person')
+@UseInterceptors(TimeInterceptor)
 export class PersonController
   implements
     OnModuleInit,
