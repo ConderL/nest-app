@@ -17,5 +17,10 @@ async function bootstrap() {
   );
   app.useStaticAssets('public', { prefix: '/static' });
   await app.listen(9527);
+
+  // 测试销毁时的生命周期
+  // setTimeout(() => {
+  //   app.close();
+  // }, 3000);
 }
 bootstrap();

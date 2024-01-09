@@ -7,13 +7,27 @@ import {
   UploadedFiles,
   Query,
   Inject,
+  OnModuleInit,
+  OnApplicationBootstrap,
+  OnModuleDestroy,
+  OnApplicationShutdown,
+  BeforeApplicationShutdown,
 } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { PersonService } from './person.service';
+import { CoffeeService } from 'src/coffee/coffee.service';
+import { log } from 'console';
 
 @Controller('/person')
-export class PersonController {
+export class PersonController
+  implements
+    OnModuleInit,
+    OnApplicationBootstrap,
+    OnModuleDestroy,
+    BeforeApplicationShutdown,
+    OnApplicationShutdown
+{
   constructor(
     @Inject('person_service') private readonly personService: PersonService, // 构造函数注入
   ) {}
@@ -25,12 +39,37 @@ export class PersonController {
   @Inject('factory')
   private readonly factory: { brand: string };
 
+  @Inject(CoffeeService)
+  private readonly coffeeService: CoffeeService;
+
+  onModuleInit() {
+    log('person.controller onModuleInit');
+  }
+
+  onApplicationBootstrap() {
+    log('person.controller onApplicationBootstrap');
+  }
+
+  onModuleDestroy() {
+    log('person.controller onModuleDestroy');
+  }
+
+  beforeApplicationShutdown(signal?: string) {
+    log('person.controller beforeApplicationShutdown', signal);
+  }
+
+  onApplicationShutdown(signal?: string) {
+    log('person.controller onApplicationShutdown', signal);
+  }
+
   @Get()
   getPerson(@Query() name) {
+    const coffee = this.coffeeService.find(name);
     return {
       name: this.personService.getName(name),
       admin: this.admin,
       factory: this.factory,
+      coffee,
     };
   }
 
