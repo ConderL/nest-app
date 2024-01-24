@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Request, Response, NextFunction } from 'express';
+import { join } from 'path';
+import * as session from 'express-session';
 // import { TestFilter } from './test.filter';
 // import { ValidatePipe } from './validate.pipe';
 // import { TimeInterceptor } from './time.interceptor';
@@ -10,6 +12,13 @@ import { Request, Response, NextFunction } from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.use(
+    session({
+      secret: 'conder',
+      cookie: { maxAge: 100000 },
+    }),
+  );
 
   app.use((req: Request, res: Response, next: NextFunction) => {
     console.log('before', req.url);
@@ -39,7 +48,9 @@ async function bootstrap() {
       },
     }),
   );
-  app.useStaticAssets('public', { prefix: '/static' });
+  app.useStaticAssets(join(__dirname, '..', 'public'), { prefix: '/static' });
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+  app.setViewEngine('hbs');
   await app.listen(9527);
 
   // 测试销毁时的生命周期

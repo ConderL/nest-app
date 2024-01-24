@@ -100,3 +100,11 @@ services:
 分离启动服务`docker-compose up -d`
 
 安装数据库支持`npm i @nestjs/typeorm typeorm pg`
+
+若要使用session需要安装中间件:
+
+`npm install express-session`
+
+`hbs`模板引擎
+
+`npm install --save hbs`

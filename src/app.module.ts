@@ -5,8 +5,15 @@ import { CoffeeModule } from './coffee/coffee.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonModule } from './person/person.module';
 import { LogMiddleware } from './log.middleware';
+// import { APP_FILTER } from '@nestjs/core';
+// import { TestFilter } from './test.filter';
+// import { APP_PIPE } from '@nestjs/core';
+// import { ValidatePipe } from './validate.pipe';
+// import { APP_INTERCEPTOR } from '@nestjs/core';
+// import { TimeInterceptor } from './time.interceptor';
 // import { APP_GUARD } from '@nestjs/core';
 // import { LoginGuard } from './login.guard';
+import { HostController } from './host/host.controller';
 
 @Module({
   imports: [
@@ -23,12 +30,24 @@ import { LogMiddleware } from './log.middleware';
       synchronize: true,
     }),
   ],
-  controllers: [AppController],
+  controllers: [AppController, HostController],
   providers: [
     AppService,
     // {
     //   provide: APP_GUARD,
     //   useClass: LoginGuard,
+    // },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: TimeInterceptor,
+    // },
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: ValidatePipe,
+    // },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: TestFilter,
     // },
   ],
 })
