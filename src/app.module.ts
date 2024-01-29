@@ -14,11 +14,13 @@ import { LogMiddleware } from './log.middleware';
 // import { APP_GUARD } from '@nestjs/core';
 // import { LoginGuard } from './login.guard';
 import { HostController } from './host/host.controller';
+import { ExecutionContextModule } from './execution-context/execution-context.module';
 
 @Module({
   imports: [
     PersonModule,
     CoffeeModule,
+    ExecutionContextModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
