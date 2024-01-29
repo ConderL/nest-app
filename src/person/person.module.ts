@@ -6,21 +6,24 @@ import {
   OnApplicationShutdown,
   BeforeApplicationShutdown,
   Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { PersonController } from './person.controller';
 import { PersonService } from './person.service';
 import { ModuleRef } from '@nestjs/core';
-// import { CoffeeModule } from 'src/coffee/coffee.module';
+import { CoffeeModule } from 'src/coffee/coffee.module';
+
+const personProvider = {
+  provide: 'person_service',
+  useClass: PersonService,
+};
 
 @Module({
   // 局部模块
-  // imports: [CoffeeModule],
+  imports: [forwardRef(() => CoffeeModule)],
   controllers: [PersonController],
   providers: [
-    {
-      provide: 'person_service',
-      useClass: PersonService,
-    },
+    personProvider,
     {
       provide: 'admin',
       useValue: {
@@ -47,6 +50,7 @@ import { ModuleRef } from '@nestjs/core';
       useExisting: 'nickName', // 别名
     },
   ],
+  exports: [personProvider],
 })
 export class PersonModule
   implements

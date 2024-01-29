@@ -12,6 +12,7 @@ import {
   OnModuleDestroy,
   OnApplicationShutdown,
   BeforeApplicationShutdown,
+  forwardRef,
 } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -41,7 +42,7 @@ export class PersonController
   @Inject('factory')
   private readonly factory: { brand: string };
 
-  @Inject(CoffeeService)
+  @Inject(forwardRef(() => CoffeeService))
   private readonly coffeeService: CoffeeService;
 
   onModuleInit() {
