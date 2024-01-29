@@ -17,6 +17,8 @@ import { HostController } from './host/host.controller';
 import { ExecutionContextModule } from './execution-context/execution-context.module';
 import { CustomDecotorController } from './custom-decorator/aaa.controller';
 import { MetadataController } from './metadata/metadata.controller';
+import { MyDynamicModule } from './dynamic-module/dynamic.module';
+import { Dynamic2Module } from './dynamic-module/dynamic2.module';
 
 @Module({
   imports: [
@@ -32,6 +34,18 @@ import { MetadataController } from './metadata/metadata.controller';
       database: 'postgres',
       autoLoadEntities: true,
       synchronize: true,
+    }),
+    MyDynamicModule.register({ name: 'MyDynamicModule' }),
+    Dynamic2Module.register({ aaa: 123, bbb: '456', isGlobal: false }),
+    Dynamic2Module.registerAsync({
+      useFactory: async () => {
+        await 111;
+        return {
+          aaa: 111,
+          bbb: '222',
+        };
+      },
+      inject: [],
     }),
   ],
   controllers: [
