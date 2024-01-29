@@ -15,6 +15,7 @@ import { LogMiddleware } from './log.middleware';
 // import { LoginGuard } from './login.guard';
 import { HostController } from './host/host.controller';
 import { ExecutionContextModule } from './execution-context/execution-context.module';
+import { AaaController } from './custom-decorator/aaa.controller';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { ExecutionContextModule } from './execution-context/execution-context.mo
       synchronize: true,
     }),
   ],
-  controllers: [AppController, HostController],
+  controllers: [AppController, HostController, AaaController],
   providers: [
     AppService,
     // {
