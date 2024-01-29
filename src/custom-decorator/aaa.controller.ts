@@ -7,7 +7,7 @@ import { MyQuery } from './query.decorator';
 import { ClassDecorator } from './class.decorator';
 
 @ClassDecorator()
-export class AaaController {
+export class CustomDecotorController {
   @Get()
   @Aaa('admin')
   @UseGuards(AaaGuard)

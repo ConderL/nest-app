@@ -15,7 +15,8 @@ import { LogMiddleware } from './log.middleware';
 // import { LoginGuard } from './login.guard';
 import { HostController } from './host/host.controller';
 import { ExecutionContextModule } from './execution-context/execution-context.module';
-import { AaaController } from './custom-decorator/aaa.controller';
+import { CustomDecotorController } from './custom-decorator/aaa.controller';
+import { MetadataController } from './metadata/metadata.controller';
 
 @Module({
   imports: [
@@ -33,7 +34,12 @@ import { AaaController } from './custom-decorator/aaa.controller';
       synchronize: true,
     }),
   ],
-  controllers: [AppController, HostController, AaaController],
+  controllers: [
+    AppController,
+    HostController,
+    CustomDecotorController,
+    MetadataController,
+  ],
   providers: [
     AppService,
     // {
