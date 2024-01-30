@@ -12,8 +12,13 @@ import {
   Param,
   ParseUUIDPipe,
   DefaultValuePipe,
+  Post,
+  Body,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PipePipe } from './pipe.pipe';
+import { PipeDto } from './dto/pipeDto';
+import { MyValidationPipe } from './myValidationPipe.pipe';
 
 enum User {
   ADMIN = 'ADMIN',
@@ -47,14 +52,17 @@ export class PipeController {
   ) {
     return id;
   }
+
   @Get('float')
   getFloat(@Query('id', ParseFloatPipe) id: number) {
     return id + 1;
   }
+
   @Get('boolean')
   getBoolean(@Query('flag', ParseBoolPipe) flag: boolean) {
     return flag;
   }
+
   @Get('array')
   getArray(
     @Query(
@@ -69,23 +77,37 @@ export class PipeController {
   ) {
     return arr.reduce((p, c) => p + c);
   }
+
   @Get('enum/:enum')
   getEnum(@Param('enum', new ParseEnumPipe(User)) user: User) {
     return user;
   }
+
   @Get('uid/:uid')
   getUid(@Param('uid', ParseUUIDPipe) uid: string) {
     return uid;
   }
+
   @Get('default')
   getDefault(@Param('id', new DefaultValuePipe('defalut')) id: string) {
     return id;
   }
+
   @Get('custom/:id')
   getCustom(
     @Param('id', PipePipe) id: number,
     @Query('name', PipePipe) name: string,
   ) {
     return id + name;
+  }
+
+  @Post()
+  post(@Body(ValidationPipe) obj: PipeDto) {
+    console.log(obj);
+  }
+
+  @Post('my')
+  myPost(@Body(MyValidationPipe) obj: PipeDto) {
+    console.log(obj);
   }
 }
