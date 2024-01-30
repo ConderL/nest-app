@@ -20,6 +20,7 @@ import { MetadataController } from './metadata/metadata.controller';
 import { MyDynamicModule } from './dynamic-module/dynamic.module';
 import { Dynamic2Module } from './dynamic-module/dynamic2.module';
 import { InterceptorModule } from './interceptor/interceptor.module';
+import { PipeModule } from './pipe/pipe.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { InterceptorModule } from './interceptor/interceptor.module';
       inject: [],
     }),
     InterceptorModule,
+    PipeModule,
   ],
   controllers: [
     AppController,
