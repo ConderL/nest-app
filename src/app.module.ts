@@ -21,6 +21,7 @@ import { MyDynamicModule } from './dynamic-module/dynamic.module';
 import { Dynamic2Module } from './dynamic-module/dynamic2.module';
 import { InterceptorModule } from './interceptor/interceptor.module';
 import { PipeModule } from './pipe/pipe.module';
+import { ExceptionModule } from './exception/exception.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { PipeModule } from './pipe/pipe.module';
     }),
     InterceptorModule,
     PipeModule,
+    ExceptionModule,
   ],
   controllers: [
     AppController,

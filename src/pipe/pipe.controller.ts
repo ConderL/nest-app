@@ -15,10 +15,12 @@ import {
   Post,
   Body,
   ValidationPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { PipePipe } from './pipe.pipe';
 import { PipeDto } from './dto/pipeDto';
 import { MyValidationPipe } from './myValidationPipe.pipe';
+import { ExFilter } from 'src/exception/exception.filter';
 
 enum User {
   ADMIN = 'ADMIN',
@@ -102,6 +104,7 @@ export class PipeController {
   }
 
   @Post()
+  @UseFilters(ExFilter)
   post(@Body(ValidationPipe) obj: PipeDto) {
     console.log(obj);
   }
