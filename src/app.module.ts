@@ -19,6 +19,7 @@ import { CustomDecotorController } from './custom-decorator/aaa.controller';
 import { MetadataController } from './metadata/metadata.controller';
 import { MyDynamicModule } from './dynamic-module/dynamic.module';
 import { Dynamic2Module } from './dynamic-module/dynamic2.module';
+import { InterceptorModule } from './interceptor/interceptor.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { Dynamic2Module } from './dynamic-module/dynamic2.module';
       },
       inject: [],
     }),
+    InterceptorModule,
   ],
   controllers: [
     AppController,
