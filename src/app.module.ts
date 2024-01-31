@@ -23,6 +23,7 @@ import { InterceptorModule } from './interceptor/interceptor.module';
 import { PipeModule } from './pipe/pipe.module';
 import { ExceptionModule } from './exception/exception.module';
 import { MulterModule } from './multer/multer.module';
+import { LargeFileModule } from './large-file/large-file.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { MulterModule } from './multer/multer.module';
     PipeModule,
     ExceptionModule,
     MulterModule,
+    LargeFileModule,
   ],
   controllers: [
     AppController,
