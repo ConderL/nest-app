@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { Request, Response, NextFunction } from 'express';
 import { join } from 'path';
 import * as session from 'express-session';
+import { MyLogger } from './logger/myLogger.service';
 // import { TestFilter } from './test.filter';
 // import { ValidatePipe } from './validate.pipe';
 // import { TimeInterceptor } from './time.interceptor';
@@ -13,7 +14,13 @@ import * as session from 'express-session';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true, // 支持跨域
+    // logger: false, // 关闭日志
+    // logger: ['warn', 'error'], // 决定显示什么级别的日志
+    // logger: new MyLogger(),
+    bufferLogs: true,
   });
+
+  app.useLogger(app.get(MyLogger));
 
   app.use(
     session({

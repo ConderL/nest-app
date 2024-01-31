@@ -40,9 +40,9 @@ export class AppController {
     @Ip() ip: string,
     @Session() session,
   ): string {
-    console.log(accept, headers);
-    console.log(ip);
-    console.log(session);
+    // console.log(accept, headers);
+    // console.log(ip);
+    // console.log(session);
 
     if (!session.count) {
       session.count = 1;

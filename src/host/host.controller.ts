@@ -8,15 +8,21 @@ import {
   HttpCode,
   Header,
   Redirect,
+  Inject,
 } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
+import { MyLogger } from 'src/logger/myLogger.service';
 
 // @Controller({ host: /[\d\.]+/, path: 'host' })
 @Controller({ host: ':a.:b.:c.:d', path: 'host' })
 export class HostController {
+  @Inject(MyLogger)
+  private readonly logger: MyLogger;
+
   @Get()
   main(@HostParam() host, @Req() req: Request) {
     console.log(req.hostname, req.url);
+    this.logger.log('haha', HostController.name);
     return host;
   }
 

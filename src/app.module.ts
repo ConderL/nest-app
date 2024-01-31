@@ -24,6 +24,9 @@ import { PipeModule } from './pipe/pipe.module';
 import { ExceptionModule } from './exception/exception.module';
 import { MulterModule } from './multer/multer.module';
 import { LargeFileModule } from './large-file/large-file.module';
+import { LoggerModule } from './logger/logger.module';
+import { MyLogger } from './logger/myLogger.service';
+import { DynamicLoggerModule } from './logger/dynamicLogger';
 
 @Module({
   imports: [
@@ -57,6 +60,11 @@ import { LargeFileModule } from './large-file/large-file.module';
     ExceptionModule,
     MulterModule,
     LargeFileModule,
+    LoggerModule,
+    DynamicLoggerModule.register({
+      a: 1,
+      b: 2,
+    }),
   ],
   controllers: [
     AppController,
@@ -66,6 +74,7 @@ import { LargeFileModule } from './large-file/large-file.module';
   ],
   providers: [
     AppService,
+    MyLogger,
     // {
     //   provide: APP_GUARD,
     //   useClass: LoginGuard,
@@ -81,7 +90,7 @@ import { LargeFileModule } from './large-file/large-file.module';
     // {
     //   provide: APP_FILTER,
     //   useClass: TestFilter,
-    // },
+    // }
   ],
 })
 export class AppModule implements NestModule {
