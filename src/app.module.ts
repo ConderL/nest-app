@@ -22,6 +22,7 @@ import { Dynamic2Module } from './dynamic-module/dynamic2.module';
 import { InterceptorModule } from './interceptor/interceptor.module';
 import { PipeModule } from './pipe/pipe.module';
 import { ExceptionModule } from './exception/exception.module';
+import { MulterModule } from './multer/multer.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { ExceptionModule } from './exception/exception.module';
     InterceptorModule,
     PipeModule,
     ExceptionModule,
+    MulterModule,
   ],
   controllers: [
     AppController,

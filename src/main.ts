@@ -11,7 +11,9 @@ import * as session from 'express-session';
 // import { LoginGuard } from './login.guard';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    cors: true, // 支持跨域
+  });
 
   app.use(
     session({
