@@ -28,6 +28,10 @@ import { LoggerModule } from './logger/logger.module';
 import { MyLogger } from './logger/myLogger.service';
 import { DynamicLoggerModule } from './logger/dynamicLogger';
 
+import { WinstonModule } from './winston/winston.module';
+import { transports, format } from 'winston';
+import * as chalk from 'chalk';
+
 @Module({
   imports: [
     PersonModule,
@@ -64,6 +68,27 @@ import { DynamicLoggerModule } from './logger/dynamicLogger';
     DynamicLoggerModule.register({
       a: 1,
       b: 2,
+    }),
+    WinstonModule.forRoot({
+      level: 'debug',
+      transports: [
+        new transports.Console({
+          format: format.combine(
+            format.colorize(),
+            format.printf(({ context, level, message, time }) => {
+              const appStr = chalk.green(`[NEST]`);
+              const contextStr = chalk.yellow(`[${context}]`);
+
+              return `${appStr} ${time} ${level} ${contextStr} ${message} `;
+            }),
+          ),
+        }),
+        new transports.File({
+          format: format.combine(format.timestamp(), format.json()),
+          filename: '111.log',
+          dirname: 'log',
+        }),
+      ],
     }),
   ],
   controllers: [

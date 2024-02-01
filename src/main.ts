@@ -5,7 +5,9 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { Request, Response, NextFunction } from 'express';
 import { join } from 'path';
 import * as session from 'express-session';
-import { MyLogger } from './logger/myLogger.service';
+import { WINSTON_LOGGER_TOKEN } from './winston/winston.module';
+
+// import { MyLogger } from './logger/myLogger.service';
 // import { TestFilter } from './test.filter';
 // import { ValidatePipe } from './validate.pipe';
 // import { TimeInterceptor } from './time.interceptor';
@@ -20,7 +22,8 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useLogger(app.get(MyLogger));
+  // app.useLogger(app.get(MyLogger));
+  app.useLogger(app.get(WINSTON_LOGGER_TOKEN));
 
   app.use(
     session({
