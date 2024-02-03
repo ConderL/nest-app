@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CoffeeService } from './coffee/coffee.service';
-import { MyLoggerModule } from './logger/MyLoggerModule';
+import { MyLoggerModule } from './logger/myLoggerModule';
 
 @Injectable()
 export class AppService {

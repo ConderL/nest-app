@@ -1,5 +1,5 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { MyLoggerModule } from './MyLoggerModule';
+import { MyLoggerModule } from './myLoggerModule';
 
 @Module({})
 export class DynamicLoggerModule {
